@@ -65,6 +65,7 @@ public class ManagersController {
             return null;
         }, velocityTemplateEngine);
 
+
         //Show
         get("/managers/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
