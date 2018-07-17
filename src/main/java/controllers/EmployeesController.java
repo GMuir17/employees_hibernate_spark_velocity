@@ -13,13 +13,11 @@ import static spark.Spark.get;
 
 public class EmployeesController {
 
-    public static void main(String[] args) {
+    public EmployeesController() {
+        this.setUpEndpoints();
+    }
 
-        Seeds.seedData();
-
-        ManagersController managersController = new ManagersController();
-        EngineersController engineersController = new EngineersController();
-        DepartmentsController departmentsController = new DepartmentsController();
+    public void setUpEndpoints() {
 
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
 
@@ -46,3 +44,4 @@ public class EmployeesController {
         }, velocityTemplateEngine);
     }
 }
+
