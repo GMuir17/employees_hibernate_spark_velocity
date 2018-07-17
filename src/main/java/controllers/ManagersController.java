@@ -76,7 +76,6 @@ public class ManagersController {
 
             model.put("manager", manager);
             return new ModelAndView(model, "templates/layout.vtl");
-
         }, velocityTemplateEngine);
 
         //Edit

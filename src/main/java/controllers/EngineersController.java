@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.xml.internal.ws.api.pipe.Engine;
 import db.DBHelper;
 import models.Department;
 import models.Engineer;
@@ -60,6 +61,19 @@ public class EngineersController {
 
             res.redirect("/engineers");
             return null;
+        }, velocityTemplateEngine);
+
+
+        //Show
+        get("/engineers/:id", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("template", "templates/engineers/show.vtl");
+
+            int engineerId = Integer.parseInt(req.params(":id"));
+            Engineer engineer = DBHelper.find(engineerId, Engineer.class);
+
+            model.put("engineer", engineer);
+            return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
 
