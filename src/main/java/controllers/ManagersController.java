@@ -78,6 +78,7 @@ public class ManagersController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+
         //Edit
         get("/managers/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
@@ -91,6 +92,7 @@ public class ManagersController {
             model.put("template", "templates/managers/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
+
 
         post("/managers/:id", (req, res) -> {
             int departmentId = Integer.parseInt(req.queryParams("department"));
@@ -112,6 +114,7 @@ public class ManagersController {
             res.redirect("/managers");
             return null;
         }, velocityTemplateEngine);
+
 
         //Delete
         post("managers/:id/delete", (req, res) -> {
