@@ -1,11 +1,8 @@
 package controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import com.sun.tools.internal.xjc.model.Model;
 import db.DBHelper;
 import models.Department;
 import models.Manager;
-import org.omg.CORBA.INTERNAL;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -23,10 +20,11 @@ public class ManagersController {
     }
 
     private void setUpEndpoints() {
-        //TODO: add routes in here
+
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
 
 
+        //Index
         get("/managers", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             model.put("template", "templates/managers/index.vtl");
@@ -38,26 +36,27 @@ public class ManagersController {
         }, velocityTemplateEngine);
 
 
+        //Create
         get("/managers/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             List<Department> departments = DBHelper.getAll(Department.class);
+
             model.put("departments", departments);
             model.put("template", "templates/managers/create.vtl");
+
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
 
         post("/managers", (req, res) -> {
             String firstName = req.queryParams("first-name");
-
             String lastName = req.queryParams("last-name");
-
             int salary = Integer.parseInt(req.queryParams("salary"));
+            double budget = Double.parseDouble(req.queryParams("budget"));
 
             int departmentId = Integer.parseInt(req.queryParams("department"));
             Department department = DBHelper.find(departmentId, Department.class);
 
-            double budget = Double.parseDouble(req.queryParams("budget"));
 
             Manager newManager = new Manager(firstName, lastName, salary, department, budget);
             DBHelper.save(newManager);
@@ -66,9 +65,10 @@ public class ManagersController {
             return null;
         }, velocityTemplateEngine);
 
+        //Show
         get("/managers/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
-            model.put("template", "templates/managers/id.vtl");
+            model.put("template", "templates/managers/show.vtl");
 
             int managerId = Integer.parseInt(req.params(":id"));
             Manager manager= DBHelper.find(managerId, Manager.class);
@@ -78,6 +78,7 @@ public class ManagersController {
 
         }, velocityTemplateEngine);
 
+        //Edit
         get("/managers/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             List<Department> departments = DBHelper.getAll(Department.class);
@@ -112,6 +113,7 @@ public class ManagersController {
             return null;
         }, velocityTemplateEngine);
 
+        //Delete
         post("managers/:id/delete", (req, res) -> {
             int managerId = Integer.parseInt(req.params(":id"));
             Manager manager = DBHelper.find(managerId, Manager.class);
