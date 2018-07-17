@@ -117,13 +117,12 @@ public class ManagersController {
 
 
         //Delete
-        post("managers/:id/delete", (req, res) -> {
+        post("/managers/:id/delete", (req, res) -> {
             int managerId = Integer.parseInt(req.params(":id"));
             Manager manager = DBHelper.find(managerId, Manager.class);
             DBHelper.delete(manager);
 
             res.redirect("/managers");
-
             return null;
         }, velocityTemplateEngine);
 

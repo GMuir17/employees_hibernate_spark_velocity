@@ -7,6 +7,7 @@ import models.Engineer;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,7 +113,15 @@ public class EngineersController {
         }, velocityTemplateEngine);
 
 
+        //Delete
+        post("/engineers/:id/delete", (req, res) -> {
+            int engineerId = Integer.parseInt(req.params(":id"));
+            Engineer engineer = DBHelper.find(engineerId, Engineer.class);
+            DBHelper.delete(engineer);
 
+            res.redirect("/engineers");
+            return null;
+        }, velocityTemplateEngine);
 
 
 
