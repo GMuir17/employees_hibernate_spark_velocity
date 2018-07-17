@@ -34,7 +34,7 @@ public abstract class Employee {
         this.id = id;
     }
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -43,7 +43,7 @@ public abstract class Employee {
         this.firstName = firstName;
     }
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -52,7 +52,7 @@ public abstract class Employee {
         this.lastName = lastName;
     }
 
-    @Column(name="salary")
+    @Column(name = "salary")
     public int getSalary() {
         return salary;
     }

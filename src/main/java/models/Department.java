@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,7 +11,7 @@ public class Department {
 
     private int id;
     private String title;
-    private Set<Employee> employees;
+    private List<Employee> employees;
 
     public Department() {}
 
@@ -40,11 +41,11 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "department")
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }
